@@ -32,4 +32,4 @@ jobs:
         export_default_credentials: true
     - name: Deploy
       run: |-
-        gsutil cp dist/*.whl gs://$GCS_BUCKET
+        gsutil cp dist/*.whl gs://ml4data-client-builds
