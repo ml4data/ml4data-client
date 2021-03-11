@@ -36,15 +36,24 @@ class NLPClient(ML4DataClient):
                          params={'text': text})
 
     def extract_entities(self, text, lang='en'):
-        """ Analyze sentiment of a given text
+        """ Extracts entities of a given text
 
         Parameters:
-            text (str): Text to extract sentiment
+            text (str): Text to extract entities
             lang (str or `nlp.Lang`): Language of given text
         """
         return self._get('/ner',
                          params={'text': text,
                                  'lang': Lang(lang)})
+
+    def extract_keyphrases(self, text):
+        """ Extracts keyphrases of a given text
+
+        Parameters:
+            text (str): Text to extract keyphrases
+        """
+        return self._get('/keyphrases',
+                         params={'text': text})
 
     def classify_product(self, text):
         """ Classify product given a text description
