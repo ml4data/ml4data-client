@@ -34,4 +34,4 @@ jobs:
     - name: Deploy
       run: |-
         gsutil cp dist/*.whl gs://ml4data-client-builds
-        gsutil cp dist/*.whl gs://ml4data-client-builds/ml4data.whl
+        gsutil cp dist/*.whl gs://ml4data-client-builds/ml4data-stable-py3-none-any.whl
