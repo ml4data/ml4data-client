@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setup(name='ml4data',
-      version='0.1',
+      version='0.1.1',
       description='ML4Data client library',
       author='ML4Data Team',
       author_email='info@ml4data.com',
