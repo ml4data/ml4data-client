@@ -1,11 +1,17 @@
+from typing import Any, BinaryIO, Dict, Optional, Union
 from ml4data.base import ML4DataClient
 from PIL import Image
 from io import BytesIO
 
+ImageType = Union[str, Image.Image, BinaryIO]
+
 class VisionClient(ML4DataClient):
     base_url = ML4DataClient.base_url + '/vision'
 
-    def _send_image(self, endpoint, img=None, url=None):
+    def _send_image(self,
+                    endpoint: str,
+                    img: Optional[ImageType] = None,
+                    url: Optional[str] =None) -> Any:
         if (img is None and url is None) or (img is not None and url is not None):
             raise ValueError("Pass either a path, file handler, Pillow image or url as argument")
 
@@ -28,7 +34,9 @@ class VisionClient(ML4DataClient):
                           params={'url': url})
         return r
 
-    def detect_object(self, img=None, url=None):
+    def detect_object(self,
+                      img: Optional[ImageType] = None,
+                      url: Optional[str] = None) -> Dict:
         """ Detect objects in an image
 
         Pass either one of img, url as arguments
@@ -42,7 +50,9 @@ class VisionClient(ML4DataClient):
                                 img=img,
                                 url=url)
 
-    def detect_facemask(self, img=None, url=None):
+    def detect_facemask(self,
+                        img: Optional[ImageType] = None,
+                        url: Optional[str] = None) -> Dict:
         """ Detect face maks in an image
 
         Pass either one of path, fp, img, url as arguments
@@ -56,7 +66,9 @@ class VisionClient(ML4DataClient):
                                 img=img,
                                 url=url)
 
-    def classify_product(self, img=None, url=None):
+    def classify_product(self,
+                         img: Optional[ImageType] = None,
+                         url: Optional[str] = None) -> Dict:
         """ Classify the main product in an image
 
         Pass either one of path, fp, img, url as arguments
@@ -70,7 +82,9 @@ class VisionClient(ML4DataClient):
                                 img=img,
                                 url=url)
 
-    def ocr(self, img=None, url=None):
+    def ocr(self,
+            img: Optional[ImageType] = None,
+            url: Optional[str] = None) -> Dict:
         """ Extract text from an image
 
         Pass either one of path, fp, img, url as arguments
@@ -84,7 +98,9 @@ class VisionClient(ML4DataClient):
                                 img=img,
                                 url=url)
 
-    def colors(self, img=None, url=None):
+    def colors(self,
+               img: Optional[ImageType] = None,
+               url: Optional[str] = None) -> Dict:
         """ Find main colors in an image
 
         Pass either one of path, fp, img, url as arguments
