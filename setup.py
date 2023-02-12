@@ -2,9 +2,6 @@
 
 from setuptools import setup, find_packages
 
-with open('requirements.txt') as f:
-    required = f.read().splitlines()
-
 setup(name='ml4data',
       version='0.1.0',
       description='ML4Data client library',
@@ -12,5 +9,8 @@ setup(name='ml4data',
       author_email='info@ml4data.com',
       url='https://ml4data.com/',
       packages=find_packages(),
-      install_requires=required
+      install_requires=[
+        'requests>=2.22.0',
+        'Pillow>=6.2.1'
+      ]
      )
