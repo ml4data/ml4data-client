@@ -6,11 +6,19 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Python Package
+name: Upload PYPI Python Package
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Publish package on PyPI'
+  # release:
+  #   types: [published]
 
 permissions:
   contents: read
