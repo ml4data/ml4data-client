@@ -1,5 +1,5 @@
 from typing import Any, BinaryIO, Dict, Optional, Union
-from ml4data.base import ML4DataClient
+from ml4data.base import FileType, ML4DataClient
 from PIL import Image
 from io import BytesIO
 from pathlib import Path
@@ -115,3 +115,41 @@ class VisionClient(ML4DataClient):
         return self._send_image('/colors',
                                 img=img,
                                 url=url)
+
+    def create_qrs(self,
+                   file: FileType,
+                   code_column: str,
+                   label_column: str,
+                   sheet_name: Optional[str] = None,
+                   page_size: str = 'A4',
+                   dpi: int = 72,
+                   font_size: int = 8,
+                   qr_size: float = 2,
+                   fg_color: str = 'black',
+                   bg_color: str = 'white') -> bytes:
+        """ Create QR codes from an file
+
+        Params:
+            file (FileType): Path to the file, or file handler of the opened file
+            code_column (str): Column name for code
+            label_column (str): Column name for label
+            sheet_name (str): Sheet name for Excel file
+            page_size (str): Page size, e.g. A4, A5, A6, Letter, Legal
+            dpi (int): DPI
+            font_size (int): Font size
+            qr_size (float): QR size
+            fg_color (str): Foreground color
+            bg_color (str): Background color
+        """
+        res =  self._send_file('/qr-maker',
+                               file,
+                               params={'code_column': code_column,
+                                       'label_column': label_column,
+                                       'sheet_name': sheet_name,
+                                       'page_size': page_size,
+                                       'dpi': dpi,
+                                       'font_size': font_size,
+                                       'qr_size': qr_size,
+                                       'fg_color': fg_color,
+                                       'bg_color': bg_color})
+        return res
