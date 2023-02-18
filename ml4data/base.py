@@ -42,7 +42,11 @@ class ML4DataClient(object):
                 raise AuthenticationError(resp.json()['error']['message'])
             else:
                 raise APIException(resp.json()['error']['message'], status_code=resp.status_code)
-        return resp.json()['result']
+        res_type = resp.headers['Content-Type']
+        if res_type == 'application/json':
+            return resp.json()['result']
+        else: #if res_type in ['application/pdf', 'image/png', 'image/jpeg']:
+            return resp.content
 
     def _get(self,
              endpoint: str,
