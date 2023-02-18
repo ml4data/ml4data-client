@@ -1,5 +1,7 @@
+from pathlib import Path
+from typing import Any, BinaryIO, Dict, List, Optional, Union
+
 import requests
-from typing import Any, BinaryIO, Dict, List, Optional
 
 class APIException(Exception):
     def __init__(self, msg: str, status_code: int):
@@ -13,6 +15,9 @@ class APIException(Exception):
 class AuthenticationError(APIException):
     def __init__(self, msg: str):
         super(AuthenticationError, self).__init__(msg, 401)
+
+
+FileType = Union[str, Path, BinaryIO]
 
 
 class ML4DataClient(object):
@@ -65,6 +70,20 @@ class ML4DataClient(object):
                                   params=params,
                                   data=data,
                                   files=files)
+
+    def _send_file(self,
+                   endpoint: str,
+                   file: FileType,
+                   params: Optional[Dict[str, str]] = None) -> Any:
+        if isinstance(file, (str, Path)):
+            with open(file, 'rb') as fp:
+                r = self._post(endpoint=endpoint,
+                               params=params,
+                               files={'file': fp})
+        else: # file-like
+            r = self._post(endpoint=endpoint,
+                           files={'file': file})
+        return r
 
     def __del__(self):
         self.session.close()

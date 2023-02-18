@@ -2,8 +2,10 @@ from typing import Any, BinaryIO, Dict, Optional, Union
 from ml4data.base import ML4DataClient
 from PIL import Image
 from io import BytesIO
+from pathlib import Path
 
-ImageType = Union[str, Image.Image, BinaryIO]
+ImageType = Union[str, Path, Image.Image, BinaryIO]
+
 
 class VisionClient(ML4DataClient):
     base_url = ML4DataClient.base_url + '/vision'
@@ -16,7 +18,7 @@ class VisionClient(ML4DataClient):
             raise ValueError("Pass either a path, file handler, Pillow image or url as argument")
 
         if img is not None:
-            if isinstance(img, str):
+            if isinstance(img, (str, Path)):
                 with open(img, 'rb') as fp:
                     r = self._post(endpoint=endpoint,
                                    files={'file': fp})
