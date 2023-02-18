@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(name='ml4data',
-      version='0.1.0',
+      version='0.1.2',
       description='ML4Data client library',
       author='ML4Data Team',
       author_email='info@ml4data.com',

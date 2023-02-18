@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ml4data"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
   { name="ML4Data Team", email="info@ml4data.com" },
 ]
